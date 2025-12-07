@@ -1,0 +1,136 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║          IMAGE INSTRUCTION TUNING - COMPLETE PROJECT                      ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+📍 LOCATION: /mnt/localssd/diffusion/
+
+🎯 PROJECT STRUCTURE
+═══════════════════════════════════════════════════════════════════════════
+
+This project contains TWO main components:
+
+  📁 training/          Training models for instruction-based image editing
+                        ├── sd1_5/    Stable Diffusion 1.5 (~1.5-2 days)
+                        ├── sdxl/     Stable Diffusion XL (~3-5 days)
+                        └── flux/     Flux (experimental)
+  
+  📁 filter_images/     Image filtering and quality control utilities
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 QUICK START
+═══════════════════════════════════════════════════════════════════════════
+
+Choose what you want to do:
+
+1️⃣  TRAIN MODELS (InstructPix2Pix)
+   
+   Train models to edit images based on text instructions:
+   
+   $ cd training
+   $ cat START_HERE.txt
+   
+   Available models:
+   • SD 1.5 - Fast prototyping (~1.5-2 days on 8xA100)
+   • SDXL   - Production quality (~3-5 days on 8xA100)
+   • Flux   - Experimental (awaiting official release)
+
+2️⃣  FILTER IMAGES (Quality Control)
+   
+   Filter images based on lighting quality, remove dark images:
+   
+   $ cd filter_images
+   $ cat README.md
+   
+   Features:
+   • Automatic lighting quality scoring
+   • Remove dark/poorly lit images
+   • Batch processing support
+   • Verification and visualization
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+📚 WHAT'S IN EACH FOLDER?
+═══════════════════════════════════════════════════════════════════════════
+
+📁 training/
+   Complete training pipeline for InstructPix2Pix models
+   
+   • 3 model setups (SD 1.5, SDXL, Flux)
+   • Official HuggingFace scripts (SD 1.5 & SDXL)
+   • Data conversion utilities
+   • Comprehensive documentation
+   • Ready for 8xA100 training
+   
+   Training data format:
+   {"input_image": "path/in.jpg", "instruction": "edit text", "output_image": "path/out.jpg"}
+
+📁 filter_images/
+   Image quality filtering and preprocessing
+   
+   • Lighting quality scorer
+   • Automatic dark image removal
+   • Batch processing scripts
+   • Verification utilities
+   • Analysis and visualization
+   
+   Use case: Clean your dataset before training
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+💡 TYPICAL WORKFLOW
+═══════════════════════════════════════════════════════════════════════════
+
+Step 1: Filter your images (optional but recommended)
+  $ cd filter_images
+  $ python filter_lighting_images.py --input_dir /path/to/images --output_dir output
+
+Step 2: Train a model
+  $ cd ../training/sd1_5
+  $ python convert_to_hf_dataset.py --data_dir /path/to/triplet_data
+  $ ./train.sh --data_dir ./data_hf
+
+Step 3: Run inference
+  $ python inference.py --model_path ./output/model --input_image test.jpg
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+📖 DOCUMENTATION
+═══════════════════════════════════════════════════════════════════════════
+
+Training:
+  $ cd training && cat START_HERE.txt
+  $ cd training && cat README.md
+
+Image Filtering:
+  $ cd filter_images && cat README.md
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎯 WHICH SHOULD YOU START WITH?
+═══════════════════════════════════════════════════════════════════════════
+
+If you have training data ready:
+  → cd training && cat START_HERE.txt
+
+If you need to clean/filter images first:
+  → cd filter_images && cat README.md
+
+If you're just exploring:
+  → Read both README files to understand the full pipeline
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+           👉  TRAINING: cd training && cat START_HERE.txt
+           👉  FILTERING: cd filter_images && cat README.md
+
+═══════════════════════════════════════════════════════════════════════════
+
