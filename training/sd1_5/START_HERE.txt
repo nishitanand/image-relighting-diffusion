@@ -1,0 +1,132 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║             INSTRUCTPIX2PIX TRAINING ON STABLE DIFFUSION 1.5              ║
+║                    Optimized for 8xA100 GPUs                              ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+🎯 WHAT THIS DOES
+═══════════════════════════════════════════════════════════════════════════
+
+Train a model to edit images based on text instructions:
+  
+  Input:  Original Photo + "turn the sky into sunset"
+  Output: Edited Photo with sunset sky
+
+Using official HuggingFace Diffusers script (actively maintained)
+
+
+📁 YOU ARE HERE: /mnt/localssd/diffusion/training/sd1_5/
+═══════════════════════════════════════════════════════════════════════════
+
+
+🚀 QUICK START (4 STEPS)
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣  READ THE DOCS
+    
+    • WORKFLOW.txt     ← Visual workflow guide (START HERE!)
+    • QUICKREF.md      ← One-page quick reference  
+    • README.md        ← Complete documentation
+    • COMMANDS.sh      ← All commands in one file
+
+2️⃣  PREPARE YOUR DATA
+    
+    See: data_format_examples.txt
+    
+    Create: my_data/metadata.jsonl with your 50k triplets
+    Format: {"input_image": "inputs/001.jpg", "instruction": "text", "output_image": "outputs/001.jpg"}
+
+3️⃣  CONVERT & VALIDATE
+    
+    $ python validate_data.py --data_dir /path/to/my_data
+    $ python convert_to_hf_dataset.py --data_dir /path/to/my_data --output_dir ./data_hf
+
+4️⃣  TRAIN!
+    
+    $ pip install -r requirements.txt
+    $ ./setup_accelerate.sh
+    $ ./train.sh --data_dir ./data_hf
+
+
+📚 DOCUMENTATION FILES
+═══════════════════════════════════════════════════════════════════════════
+
+START HERE:
+  ► WORKFLOW.txt              Visual guide with ASCII art
+  ► QUICKREF.md               One-page reference
+  ► COMMANDS.sh               All commands to copy-paste
+
+DETAILED:
+  • README.md                 Complete guide (9KB)
+  • data_format_examples.txt  Data format examples
+
+SCRIPTS:
+  • train_instruct_pix2pix.py Official HuggingFace training script ⭐
+  • convert_to_hf_dataset.py  Convert your data format
+  • validate_data.py          Check data before training
+  • inference.py              Run trained model
+  • train.sh                  Launch training
+  • quickstart.sh            Automated setup + training
+
+
+⚡ FASTEST PATH TO TRAINING
+═══════════════════════════════════════════════════════════════════════════
+
+If you already have your data ready:
+
+  $ cd /mnt/localssd/diffusion/training/sd1_5
+  $ pip install -r requirements.txt
+  $ python convert_to_hf_dataset.py --data_dir /path/to/data --output_dir ./data_hf
+  $ ./setup_accelerate.sh
+  $ ./train.sh --data_dir ./data_hf
+
+That's it! Training will take ~1.5-2 days on 8xA100.
+
+
+📊 WHAT TO EXPECT
+═══════════════════════════════════════════════════════════════════════════
+
+Hardware:        8 x A100 (80GB)
+Training Time:   ~1.5-2 days for 50k samples
+VRAM per GPU:    ~35-45 GB
+Resolution:      512 × 512
+Batch Size:      64 global (8 per GPU)
+Model:           Stable Diffusion 1.5 + InstructPix2Pix
+
+
+🎨 AFTER TRAINING
+═══════════════════════════════════════════════════════════════════════════
+
+Run inference on your trained model:
+
+  $ python inference.py \
+      --model_path ./output/instruct-pix2pix-sd15 \
+      --input_image photo.jpg \
+      --instruction "turn sky into sunset" \
+      --output_path result.png
+
+
+❓ NEED HELP?
+═══════════════════════════════════════════════════════════════════════════
+
+1. Read WORKFLOW.txt for visual guide
+2. Read QUICKREF.md for quick reference
+3. Read README.md for troubleshooting
+4. Check COMMANDS.sh for all commands
+
+
+📖 REFERENCES
+═══════════════════════════════════════════════════════════════════════════
+
+Paper:  https://arxiv.org/abs/2211.09800 (InstructPix2Pix)
+Code:   https://github.com/huggingface/diffusers/examples/instruct_pix2pix
+Docs:   https://huggingface.co/docs/diffusers
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+              👉  READ WORKFLOW.txt NEXT  👈
+
+═══════════════════════════════════════════════════════════════════════════
+

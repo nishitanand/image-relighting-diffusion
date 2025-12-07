@@ -1,0 +1,111 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║                  FLUX INSTRUCTPIX2PIX TRAINING                            ║
+║                         (Not Yet Available)                               ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+⚠️  IMPORTANT NOTICE
+═══════════════════════════════════════════════════════════════════════════
+
+Flux is very new (released August 2024) and official InstructPix2Pix
+training scripts are NOT yet available.
+
+
+🚀 RECOMMENDED ALTERNATIVES
+═══════════════════════════════════════════════════════════════════════════
+
+1. ✅ USE SDXL (Best Current Option)
+   
+   cd ../sdxl
+   ./train.sh --data_dir ./data_hf
+   
+   • Excellent quality (1024×1024)
+   • Official training scripts
+   • ~3-5 days training time
+   • Battle-tested and reliable
+
+2. ✅ USE SD 1.5 (Fastest)
+   
+   cd ../sd1_5
+   ./train.sh --data_dir ./data_hf
+   
+   • Good quality (512×512)
+   • ~1.5-2 days training time
+   • Perfect for rapid prototyping
+
+
+❓ WHY NO FLUX YET?
+═══════════════════════════════════════════════════════════════════════════
+
+Flux uses different architecture:
+  
+  Architecture:    Transformer (not UNet)
+  Training:        Flow Matching (not Diffusion)
+  Text Encoders:   Dual (T5 + CLIP)
+  Released:        August 2024 (very new!)
+
+Adapting for InstructPix2Pix requires official implementation.
+
+
+📊 CURRENT FLUX TRAINING STATUS
+═══════════════════════════════════════════════════════════════════════════
+
+  ✅ LoRA Fine-tuning       Available
+  ✅ DreamBooth             Available
+  ✅ Text-to-Image          Available
+  ❌ InstructPix2Pix        NOT YET
+  ❌ ControlNet-style       NOT YET
+
+
+💡 WHAT'S IN THIS FOLDER?
+═══════════════════════════════════════════════════════════════════════════
+
+  • Placeholder structure (for future use)
+  • Documentation explaining the situation
+  • Utility scripts (data conversion, validation)
+
+When official Flux InstructPix2Pix training becomes available,
+this folder will be updated.
+
+
+🎯 RECOMMENDATION
+═══════════════════════════════════════════════════════════════════════════
+
+For production use NOW:
+
+  1. Prototype with SD 1.5  → Fast iteration
+  2. Scale to SDXL          → Production quality
+  3. Monitor Flux updates   → Migrate when ready
+
+Best current option: SDXL (cd ../sdxl)
+
+
+📚 RESOURCES
+═══════════════════════════════════════════════════════════════════════════
+
+Monitor for updates:
+  • https://github.com/huggingface/diffusers
+  • https://github.com/black-forest-labs/flux
+  • https://huggingface.co/black-forest-labs/FLUX.1-dev
+
+
+🔮 FUTURE
+═══════════════════════════════════════════════════════════════════════════
+
+This folder will be updated when:
+  1. Official Flux InstructPix2Pix training is released
+  2. Community has validated working implementations
+  3. Quality improvements over SDXL are demonstrated
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+      Current Status: ⏳ Waiting for official implementation
+      
+      👉 Use SDXL for now: cd ../sdxl
+      
+      See README.md for full details
+
+═══════════════════════════════════════════════════════════════════════════
+

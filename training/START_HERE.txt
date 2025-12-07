@@ -1,0 +1,175 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║          INSTRUCTION-BASED IMAGE EDITING MODEL TRAINING                   ║
+║                   Complete Training Suite (3 Models)                      ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+📍 LOCATION: /mnt/localssd/diffusion/training/
+
+🎯 AVAILABLE MODELS
+═══════════════════════════════════════════════════════════════════════════
+
+Three models, ranging from fast prototyping to best quality:
+
+  📁 sd1_5/    ✅ Stable Diffusion 1.5
+               Training: ~1.5-2 days | Quality: Good ⭐⭐⭐
+               Resolution: 512×512 | VRAM: ~35-45GB/GPU
+               Status: READY - Official HuggingFace script
+               👉 Best for: Rapid prototyping & testing
+               
+  📁 sdxl/     ✅ Stable Diffusion XL  
+               Training: ~3-5 days | Quality: Excellent ⭐⭐⭐⭐⭐
+               Resolution: 1024×1024 | VRAM: ~60-70GB/GPU
+               Status: READY - Official HuggingFace script
+               👉 Best for: Production deployment
+               
+  📁 flux/     ⏳ Flux (Experimental)
+               Training: TBD | Quality: Best? ⭐⭐⭐⭐⭐⭐
+               Resolution: 1024×1024 | VRAM: ~50-70GB/GPU
+               Status: NOT YET AVAILABLE
+               👉 Wait for official release
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 QUICK START GUIDE
+═══════════════════════════════════════════════════════════════════════════
+
+Step 1: Choose Your Model
+
+  For Fast Prototyping (Recommended Start):
+    $ cd sd1_5
+    $ cat START_HERE.txt
+    
+  For Best Quality (Production):
+    $ cd sdxl
+    $ cat START_HERE.txt
+    
+  For Future/Experimental:
+    $ cd flux
+    $ cat START_HERE.txt
+
+Step 2: Follow the instructions in that folder!
+
+═══════════════════════════════════════════════════════════════════════════
+
+💡 RECOMMENDED WORKFLOW
+═══════════════════════════════════════════════════════════════════════════
+
+  Week 1: Prototype with SD 1.5
+    • Fastest training (~1.5-2 days)
+    • Validate your data quality
+    • Test the training pipeline
+    • Iterate quickly
+    
+  Week 2: Scale to SDXL
+    • Production-quality results (~3-5 days)
+    • Higher resolution (1024×1024)
+    • Better text understanding
+    • Deploy to production
+    
+  Future: Monitor Flux
+    • Check for official release
+    • Migrate when ready
+    • State-of-the-art quality
+
+═══════════════════════════════════════════════════════════════════════════
+
+📊 MODEL COMPARISON
+═══════════════════════════════════════════════════════════════════════════
+
+                SD 1.5          SDXL            Flux
+  Quality:      Good            Excellent       Best?
+  Training:     1.5-2 days      3-5 days        TBD
+  Resolution:   512×512         1024×1024       1024×1024
+  VRAM/GPU:     35-45GB         60-70GB         50-70GB
+  Status:       ✅ Ready        ✅ Ready        ⏳ Waiting
+  
+  Best for:     Prototyping     Production      Future
+
+═══════════════════════════════════════════════════════════════════════════
+
+💾 YOUR DATA FORMAT (Same for All Models!)
+═══════════════════════════════════════════════════════════════════════════
+
+All three models use the SAME data format:
+
+  Create: my_data/metadata.jsonl
+  
+  Format (one JSON per line):
+  {"input_image": "inputs/001.jpg", "instruction": "make sky blue", "output_image": "outputs/001.jpg"}
+  
+  Convert once, use everywhere!
+
+═══════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTATION
+═══════════════════════════════════════════════════════════════════════════
+
+Root level (you are here):
+  • START_HERE.txt      This file
+  • README.md           Complete comparison of all models
+  • SETUP_COMPLETE.md   Initial setup summary
+
+Each model folder contains:
+  • START_HERE.txt      Entry point for that model
+  • README.md           Complete documentation
+  • train.sh            Launch training
+  • inference.py        Test trained model
+  • Data tools          Conversion & validation
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎯 WHICH MODEL SHOULD YOU USE?
+═══════════════════════════════════════════════════════════════════════════
+
+Choose SD 1.5 if:
+  ✅ You want to start quickly
+  ✅ Testing your data for the first time
+  ✅ Need fast iteration
+  ✅ 512×512 resolution is sufficient
+  
+Choose SDXL if:
+  ✅ You need production quality
+  ✅ Higher resolution (1024×1024) required
+  ✅ Better text understanding needed
+  ✅ You have ~3-5 days for training
+  
+Check Flux if:
+  ✅ You want cutting-edge (when available)
+  ✅ Best possible quality
+  ⚠️  Currently: Use SDXL instead
+
+═══════════════════════════════════════════════════════════════════════════
+
+⚡ QUICK COMMANDS
+═══════════════════════════════════════════════════════════════════════════
+
+  Start with SD 1.5 (recommended):
+    $ cd sd1_5 && cat START_HERE.txt
+    
+  Or jump to SDXL:
+    $ cd sdxl && cat START_HERE.txt
+    
+  Check Flux status:
+    $ cd flux && cat START_HERE.txt
+    
+  Read full comparison:
+    $ cat README.md
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎓 LEARNING PATH
+═══════════════════════════════════════════════════════════════════════════
+
+  Day 1-2:    Setup & prepare data
+  Day 2-4:    Train SD 1.5 (fast prototype)
+  Day 4-5:    Evaluate results
+  Day 5-10:   Train SDXL (production)
+  Day 10+:    Deploy & iterate
+
+═══════════════════════════════════════════════════════════════════════════
+
+           👉 RECOMMENDED: cd sd1_5 && cat START_HERE.txt 👈
+
+═══════════════════════════════════════════════════════════════════════════

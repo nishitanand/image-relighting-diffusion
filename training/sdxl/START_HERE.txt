@@ -1,0 +1,125 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                                                                           ║
+║             INSTRUCTPIX2PIX TRAINING ON SDXL                              ║
+║                    Optimized for 8xA100 GPUs                              ║
+║                                                                           ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+🎯 WHAT THIS IS
+═══════════════════════════════════════════════════════════════════════════
+
+Train SDXL (Stable Diffusion XL) for instruction-based image editing.
+
+  Input:  Original Photo (1024×1024) + "turn the sky into sunset"
+  Output: Edited Photo with sunset sky
+
+Using official HuggingFace Diffusers script (actively maintained)
+
+⭐ BETTER QUALITY than SD 1.5, but needs more compute!
+
+
+📊 KEY DIFFERENCES FROM SD 1.5
+═══════════════════════════════════════════════════════════════════════════
+
+  Resolution:     1024×1024  (vs 512×512 in SD 1.5)
+  Quality:        Excellent  (vs Good in SD 1.5)
+  Training Time:  ~3-5 days  (vs ~1.5-2 days)
+  VRAM per GPU:   ~60-70GB   (vs ~35-45GB)
+  Batch Size:     4 per GPU  (vs 8 per GPU)
+
+
+🚀 QUICK START (3 STEPS)
+═══════════════════════════════════════════════════════════════════════════
+
+1️⃣  PREPARE DATA (Same as SD 1.5!)
+
+   # Reuse your SD 1.5 data if you already converted it:
+   $ ln -s ../sd1_5/data_hf ./data_hf
+   
+   # Or convert new data:
+   $ python convert_to_hf_dataset.py --data_dir /path/to/data --output_dir ./data_hf
+
+2️⃣  SETUP (First time only)
+
+   $ pip install -r requirements.txt
+   $ ./setup_accelerate.sh
+
+3️⃣  TRAIN!
+
+   $ ./train.sh --data_dir ./data_hf
+
+
+📊 TRAINING SPECS
+═══════════════════════════════════════════════════════════════════════════
+
+Hardware:        8 x A100 (80GB)
+Training Time:   ~3-5 days for 50k samples
+VRAM per GPU:    ~60-70 GB (more than SD 1.5!)
+Resolution:      1024 × 1024
+Batch Size:      32 global (4 per GPU × 8 GPUs × 2 grad accum)
+Parameters:      ~6.6B (vs ~1B for SD 1.5)
+
+
+🎨 AFTER TRAINING
+═══════════════════════════════════════════════════════════════════════════
+
+Run inference:
+
+  $ python inference.py \
+      --model_path ./output/instruct-pix2pix-sdxl \
+      --input_image photo.jpg \
+      --instruction "turn sky into sunset" \
+      --output_path result.png
+
+
+⚡ TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════════════
+
+Out of Memory?
+  → ./train.sh --train_batch_size 3  (reduce from 4 to 3)
+
+Too slow?
+  → SDXL is 3x larger than SD 1.5, so it's inherently slower
+  → Expected: ~3-5 days for 50k samples
+
+Same data format?
+  → Yes! Use the exact same data as SD 1.5
+
+
+💡 WHEN TO USE SDXL?
+═══════════════════════════════════════════════════════════════════════════
+
+Use SDXL when:
+  ✅ You need higher quality outputs
+  ✅ Working with 1024×1024 images
+  ✅ Better text understanding is important
+  ✅ You have compute budget (~3-5 days)
+
+Stick with SD 1.5 when:
+  ✅ Fast iteration is priority
+  ✅ 512×512 resolution is sufficient
+  ✅ Limited compute budget
+  ✅ Quick prototyping (~1.5-2 days)
+
+
+📚 RECOMMENDATION
+═══════════════════════════════════════════════════════════════════════════
+
+1. Prototype with SD 1.5 first  (fast iteration)
+2. Scale to SDXL for production  (better quality)
+
+
+📖 FILES
+═══════════════════════════════════════════════════════════════════════════
+
+  • README.md                 Complete documentation
+  • train.sh                  Launch training
+  • inference.py              Run trained model
+  • train_instruct_pix2pix_sdxl.py  Official HF script
+
+═══════════════════════════════════════════════════════════════════════════
+
+           👉  See README.md for full details  👈
+
+═══════════════════════════════════════════════════════════════════════════
+

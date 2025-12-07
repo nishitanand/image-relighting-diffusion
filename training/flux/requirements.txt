@@ -1,0 +1,14 @@
+torch>=2.1.0
+torchvision>=0.16.0
+diffusers>=0.28.0
+transformers>=4.38.0
+accelerate>=0.27.0
+sentencepiece>=0.1.99
+protobuf>=3.20.0
+pillow>=10.0.0
+numpy>=1.24.0
+wandb>=0.16.0
+datasets>=2.16.0
+peft>=0.8.0
+safetensors>=0.4.0
+

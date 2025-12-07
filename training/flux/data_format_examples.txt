@@ -1,0 +1,12 @@
+# Example metadata files for different data formats
+
+## Example 1: metadata.jsonl (Recommended)
+# One JSON object per line
+# Save as: data/metadata.jsonl
+
+{"input_image": "input_images/sample_001.jpg", "instruction": "Make the sky more dramatic with sunset colors", "output_image": "output_images/sample_001.jpg"}
+{"input_image": "input_images/sample_002.jpg", "instruction": "Add snow on the ground and rooftops", "output_image": "output_images/sample_002.jpg"}
+{"input_image": "input_images/sample_003.jpg", "instruction": "Convert to black and white", "output_image": "output_images/sample_003.jpg"}
+{"input_image": "input_images/sample_004.jpg", "instruction": "Make it look like a watercolor painting", "output_image": "output_images/sample_004.jpg"}
+{"input_image": "input_images/sample_005.jpg", "instruction": "Add a person walking in the scene", "output_image": "output_images/sample_005.jpg"}
+
