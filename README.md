@@ -1,4 +1,4 @@
-# Image Instruction Tuning Project
+# Image Relighting Diffusion Project
 
 Complete pipeline for training instruction-based image editing models and preprocessing/filtering image datasets.
 
