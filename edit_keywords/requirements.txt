@@ -6,18 +6,23 @@ pandas>=2.0.0
 Pillow>=9.0.0
 tqdm>=4.65.0
 
-# VLM Providers (install based on your choice)
-# -------------------------------------------
+# ============================================================
+# DEFAULT: Qwen3-VL with vLLM (recommended - free & fast)
+# ============================================================
+vllm>=0.8.0
+qwen-vl-utils>=0.0.14
+transformers>=4.57.0
+torch>=2.0.0
 
-# Option 1: Mistral API (recommended - best quality/speed ratio)
-mistralai>=0.1.0
-
-# Option 2: OpenAI API
+# For vLLM server client
 openai>=1.0.0
 
-# Option 3: Local models (Qwen-VL, LLaVA, etc.)
-# transformers>=4.37.0
-# torch>=2.0.0
-# qwen-vl-utils>=0.0.8
-# accelerate>=0.25.0
+# ============================================================
+# OPTIONAL: API-based providers
+# ============================================================
 
+# Option 1: Mistral API
+# mistralai>=0.1.0
+
+# Option 2: OpenAI API (already installed above for vLLM client)
+# openai>=1.0.0

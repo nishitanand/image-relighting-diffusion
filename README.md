@@ -29,8 +29,8 @@ A complete end-to-end pipeline for training image relighting models based on the
 │        ▼                     │                       ▼                   ▼          │
 │  ┌────────────┐              ▼               ┌──────────────┐    ┌─────────────┐   │
 │  │ CLIP       │      ┌──────────────────┐    │ VLM          │    │ Train       │   │
-│  │ Lighting   │      │ • SAM3 Segment   │    │ (Mistral/    │    │ SD1.5/SDXL  │   │
-│  │ Filter     │      │ • Albedo Extract │    │  GPT-4)      │    │ Model       │   │
+│  │ Lighting   │      │ • SAM3 Segment   │    │ (Qwen3-VL    │    │ SD1.5/SDXL  │   │
+│  │ Filter     │      │ • Albedo Extract │    │  default)    │    │ Model       │   │
 │  └────────────┘      │ • Degradation    │    └──────────────┘    └─────────────┘   │
 │                      └──────────────────┘                                           │
 │                                                                                      │
@@ -78,7 +78,7 @@ image-relighting-diffusion/
 
 - Python 3.10+
 - CUDA-capable GPU (24GB+ VRAM recommended)
-- API key for VLM (Mistral or OpenAI)
+- For Step 3: Either GPU for Qwen3-VL (default, free) or API key for Mistral/OpenAI
 
 ---
 
@@ -144,21 +144,24 @@ python scripts/run_multi_gpu_batched.py \
 
 ### Step 3: Generate Lighting Keywords
 
-Use a VLM to generate lighting description keywords for each original image.
+Use a VLM to generate lighting description keywords for each original image. **Default: Qwen3-VL-30B** (free, runs locally with vLLM).
 
 ```bash
 cd edit_keywords
 pip install -r requirements.txt
 
-# Set your API key
-export MISTRAL_API_KEY="your-api-key"
-
-# Generate keywords
+# Option 1: Qwen3-VL with vLLM (DEFAULT - free, fast)
 python generate_keywords.py \
     --csv ../albedo/relightingDataGen-parallel/albedo_csv_files/train_images_with_albedo.csv \
     --output_dir ./output \
-    --provider mistral \
-    --num_workers 4
+    --batch_size 8
+
+# Option 2: Mistral API
+export MISTRAL_API_KEY="your-api-key"
+python generate_keywords.py \
+    --csv ../albedo/relightingDataGen-parallel/albedo_csv_files/train_images_with_albedo.csv \
+    --output_dir ./output \
+    --provider mistral
 ```
 
 **Output**: CSV with 4 columns:
@@ -234,15 +237,15 @@ python scripts/run_multi_gpu_batched.py \
     --batch-size 8
 
 # ═══════════════════════════════════════════════════════════════
-# STEP 3: Generate Lighting Keywords (~1-2 hours for 10k)
+# STEP 3: Generate Lighting Keywords (~20-30 min with Qwen3-VL)
 # ═══════════════════════════════════════════════════════════════
 cd ../../edit_keywords
-export MISTRAL_API_KEY="your-key"
 
+# Default: Qwen3-VL-30B with vLLM (free, fast)
 python generate_keywords.py \
     --csv ../albedo/relightingDataGen-parallel/albedo_csv_files/train_images_with_albedo.csv \
     --output_dir ./output \
-    --provider mistral
+    --batch_size 8
 
 # Prepare training format
 python prepare_training_data.py \
@@ -298,7 +301,7 @@ python inference.py \
 |------|------------|-------------------|
 | 1. Filter Images | ~4GB | ~1-2 hours |
 | 2. Generate Albedo | ~8-12GB/GPU | ~2-4 hours (8 GPU) |
-| 3. Edit Keywords | 0 (API) or ~24GB | ~1-2 hours |
+| 3. Edit Keywords (Qwen3-VL) | ~40GB (4x24GB TP) | ~20-30 min |
 | 4. Training SD1.5 | ~35-45GB/GPU | ~1.5-2 days |
 
 ---
@@ -341,6 +344,8 @@ This is the **inverse** of traditional relighting:
 
 - **IC-Light Paper**: [ICLR 2024](https://openreview.net/pdf?id=u1cQYxRI1H)
 - **InstructPix2Pix**: [arXiv:2211.09800](https://arxiv.org/abs/2211.09800)
+- **Qwen3-VL**: [HuggingFace](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | [GitHub](https://github.com/QwenLM/Qwen3-VL)
+- **vLLM**: [Docs](https://docs.vllm.ai/) | [Qwen3-VL Guide](https://docs.vllm.ai/projects/recipes/en/latest/Qwen/Qwen3-VL.html)
 - **SAM2/SAM3**: [GitHub](https://github.com/facebookresearch/sam2)
 - **CLIP**: [OpenAI](https://github.com/openai/CLIP)
 - **HuggingFace Diffusers**: [GitHub](https://github.com/huggingface/diffusers)
