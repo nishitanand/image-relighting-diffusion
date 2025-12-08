@@ -1,0 +1,279 @@
+{
+  "dataset_name": "ffhq_relighting_mvp",
+  "num_samples": 10,
+  "total_attempted": 10,
+  "successful": 10,
+  "failed": 0,
+  "samples": [
+    {
+      "image_id": 0,
+      "original": "data/raw/00000.png",
+      "foreground": "data/stage_1/00000_foreground.png",
+      "background": "data/stage_1/00000_background.png",
+      "albedo": "data/stage_2/00000_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00000_degraded.png",
+      "composite_image": "data/stage_3_5/00000_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.930375337600708,
+          -0.28775978088378906,
+          0.22714750468730927
+        ],
+        "ambient": 0.7936979056724274,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "curtain",
+        "pattern_opacity": 0.5529789369715088,
+        "pattern_blur": 31
+      }
+    },
+    {
+      "image_id": 1,
+      "original": "data/raw/00001.png",
+      "foreground": "data/stage_1/00001_foreground.png",
+      "background": "data/stage_1/00001_background.png",
+      "albedo": "data/stage_2/00001_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00001_degraded.png",
+      "composite_image": "data/stage_3_5/00001_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.03757127746939659,
+          0.7493651509284973,
+          0.6610901951789856
+        ],
+        "ambient": 0.6121990931973127,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "tree_foliage",
+        "pattern_opacity": 0.4124155008546515,
+        "pattern_blur": 51
+      }
+    },
+    {
+      "image_id": 2,
+      "original": "data/raw/00002.png",
+      "foreground": "data/stage_1/00002_foreground.png",
+      "background": "data/stage_1/00002_background.png",
+      "albedo": "data/stage_2/00002_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00002_degraded.png",
+      "composite_image": "data/stage_3_5/00002_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          0.8401142954826355,
+          0.12010524421930313,
+          0.5289449095726013
+        ],
+        "ambient": 0.7045946837427357,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "fence",
+        "pattern_opacity": 0.485191215067807,
+        "pattern_blur": 21
+      }
+    },
+    {
+      "image_id": 3,
+      "original": "data/raw/00003.png",
+      "foreground": "data/stage_1/00003_foreground.png",
+      "background": "data/stage_1/00003_background.png",
+      "albedo": "data/stage_2/00003_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00003_degraded.png",
+      "composite_image": "data/stage_3_5/00003_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.07382705807685852,
+          -0.5856037139892578,
+          0.8072285056114197
+        ],
+        "ambient": 0.6132977886358977,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "tree_foliage",
+        "pattern_opacity": 0.516261761445378,
+        "pattern_blur": 21
+      }
+    },
+    {
+      "image_id": 4,
+      "original": "data/raw/00004.png",
+      "foreground": "data/stage_1/00004_foreground.png",
+      "background": "data/stage_1/00004_background.png",
+      "albedo": "data/stage_2/00004_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00004_degraded.png",
+      "composite_image": "data/stage_3_5/00004_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          0.6937624216079712,
+          -0.33175575733184814,
+          0.6392431855201721
+        ],
+        "ambient": 0.6611829198008194,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "curtain",
+        "pattern_opacity": 0.38585024948022156,
+        "pattern_blur": 31
+      }
+    },
+    {
+      "image_id": 5,
+      "original": "data/raw/00005.png",
+      "foreground": "data/stage_1/00005_foreground.png",
+      "background": "data/stage_1/00005_background.png",
+      "albedo": "data/stage_2/00005_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00005_degraded.png",
+      "composite_image": "data/stage_3_5/00005_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          0.9573030471801758,
+          0.18714532256126404,
+          0.2203349620103836
+        ],
+        "ambient": 0.8262911214446236,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "fence",
+        "pattern_opacity": 0.5631708391749138,
+        "pattern_blur": 31
+      }
+    },
+    {
+      "image_id": 6,
+      "original": "data/raw/00006.png",
+      "foreground": "data/stage_1/00006_foreground.png",
+      "background": "data/stage_1/00006_background.png",
+      "albedo": "data/stage_2/00006_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00006_degraded.png",
+      "composite_image": "data/stage_3_5/00006_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.6798083186149597,
+          -0.3430439233779907,
+          0.6482141017913818
+        ],
+        "ambient": 0.6354078304926256,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "cloud",
+        "pattern_opacity": 0.5229066662490055,
+        "pattern_blur": 31
+      }
+    },
+    {
+      "image_id": 7,
+      "original": "data/raw/00007.png",
+      "foreground": "data/stage_1/00007_foreground.png",
+      "background": "data/stage_1/00007_background.png",
+      "albedo": "data/stage_2/00007_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00007_degraded.png",
+      "composite_image": "data/stage_3_5/00007_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.12529213726520538,
+          0.688300609588623,
+          0.7145237326622009
+        ],
+        "ambient": 0.8031198269979858,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "venetian_blind",
+        "pattern_opacity": 0.4650350787562545,
+        "pattern_blur": 51
+      }
+    },
+    {
+      "image_id": 8,
+      "original": "data/raw/00008.png",
+      "foreground": "data/stage_1/00008_foreground.png",
+      "background": "data/stage_1/00008_background.png",
+      "albedo": "data/stage_2/00008_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00008_degraded.png",
+      "composite_image": "data/stage_3_5/00008_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.6713988184928894,
+          0.22420059144496918,
+          0.7063694000244141
+        ],
+        "ambient": 0.7270376218568071,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "tree_foliage",
+        "pattern_opacity": 0.5464277470424723,
+        "pattern_blur": 51
+      }
+    },
+    {
+      "image_id": 9,
+      "original": "data/raw/00009.png",
+      "foreground": "data/stage_1/00009_foreground.png",
+      "background": "data/stage_1/00009_background.png",
+      "albedo": "data/stage_2/00009_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00009_degraded.png",
+      "composite_image": "data/stage_3_5/00009_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          -0.685441255569458,
+          0.5945082306861877,
+          0.4203929305076599
+        ],
+        "ambient": 0.6213382587467329,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "tree_foliage",
+        "pattern_opacity": 0.5439173457044703,
+        "pattern_blur": 41
+      }
+    }
+  ]
+}

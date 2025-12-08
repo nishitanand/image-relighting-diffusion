@@ -1,0 +1,21 @@
+pipeline:
+  name: "ffhq_relighting_poc"
+  batch_size: 1  # Process one image at a time
+  num_samples: 100
+  seed: 42
+
+memory:
+  max_gpu_memory_gb: 22
+  enable_cpu_offload: true
+  clear_cache_between_stages: true
+
+paths:
+  data_root: "/scratch1/manans/projects/relighting/data"
+  models_root: "/scratch1/manans/projects/relighting/models"
+  output_root: "/scratch1/manans/projects/relighting/data/outputs"
+  logs_root: "/scratch1/manans/projects/relighting/logs"
+
+dataset:
+  name: "bitmind/ffhq-256"  # HuggingFace FFHQ dataset
+  resolution: 256
+  num_download: 100

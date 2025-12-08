@@ -1,0 +1,16 @@
+{
+  "degradation_type": "soft_shading",
+  "light_direction": [
+    -0.23388943076133728,
+    -0.10259134322404861,
+    0.9668354392051697
+  ],
+  "ambient": 0.6531380017958406,
+  "has_specular": false,
+  "specular_intensity": 0,
+  "shininess": 0,
+  "has_pattern": true,
+  "pattern_type": "tree_foliage",
+  "pattern_opacity": 0.41190231984496556,
+  "pattern_blur": 31
+}

@@ -1,0 +1,36 @@
+{
+  "dataset_name": "ffhq_relighting_mvp",
+  "num_samples": 1,
+  "total_attempted": 1,
+  "successful": 1,
+  "failed": 0,
+  "samples": [
+    {
+      "image_id": 0,
+      "original": "data/raw/00000.png",
+      "foreground": "data/stage_1/00000_foreground.png",
+      "background": "data/stage_1/00000_background.png",
+      "albedo": "data/stage_2/00000_albedo.png",
+      "albedo_method": "retinex",
+      "degraded_foreground": "data/stage_3/00000_degraded.png",
+      "composite_image": "data/stage_3_5/00000_composite.png",
+      "degradation_type": "soft_shading",
+      "degradation_metadata": {
+        "degradation_type": "soft_shading",
+        "light_direction": [
+          0.23770105838775635,
+          0.5801698565483093,
+          0.7790386080741882
+        ],
+        "ambient": 0.8230346162226126,
+        "has_specular": false,
+        "specular_intensity": 0,
+        "shininess": 0,
+        "has_pattern": true,
+        "pattern_type": "curtain",
+        "pattern_opacity": 0.3731132760722877,
+        "pattern_blur": 41
+      }
+    }
+  ]
+}

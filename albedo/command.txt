@@ -1,0 +1,6 @@
+cd /mnt/localssd/diffusion/albedo/relightingDataGen-parallel/
+
+
+conda activate sam3
+
+python scripts/run_multi_gpu_batched.py     --config config/mvp_config.yaml     --csv /mnt/localssd/diffusion/filter_images/ffhq_output_top12k_random/val_images.csv     --num-gpus 8     --batch-size 8

@@ -1,0 +1,16 @@
+{
+  "degradation_type": "soft_shading",
+  "light_direction": [
+    0.25643685460090637,
+    -0.8446056842803955,
+    0.46998023986816406
+  ],
+  "ambient": 0.6595382755212758,
+  "has_specular": false,
+  "specular_intensity": 0,
+  "shininess": 0,
+  "has_pattern": true,
+  "pattern_type": "voronoi",
+  "pattern_opacity": 0.38932540789128817,
+  "pattern_blur": 31
+}

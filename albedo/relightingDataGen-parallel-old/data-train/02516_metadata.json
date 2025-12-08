@@ -1,0 +1,16 @@
+{
+  "degradation_type": "soft_shading",
+  "light_direction": [
+    0.14162109792232513,
+    0.9212630987167358,
+    0.3622399866580963
+  ],
+  "ambient": 0.7368560644503779,
+  "has_specular": false,
+  "specular_intensity": 0,
+  "shininess": 0,
+  "has_pattern": true,
+  "pattern_type": "branch",
+  "pattern_opacity": 0.46349951001638645,
+  "pattern_blur": 21
+}

@@ -1,0 +1,30 @@
+
+TOP 10,000 IMAGES SELECTION SUMMARY
+============================================================
+
+SCORE STATISTICS:
+  Minimum:  0.211126
+  Maximum:  0.262844
+  Mean:     0.217056
+  Median:   0.215624
+  Std Dev:  0.005299
+
+SCORE RANGES:
+  ≥ 0.250:     7 images (  0.1%)
+  ≥ 0.240:    37 images (  0.4%)
+  ≥ 0.230:   277 images (  2.8%)
+  ≥ 0.220: 2,309 images ( 23.1%)
+  ≥ 0.215: 5,529 images ( 55.3%)
+  ≥ 0.210: 10,000 images (100.0%)
+
+DATASET SPLITS:
+  Training:   8,000 images (80%)
+  Validation: 1,000 images (10%)
+  Test:       1,000 images (10%)
+
+COMPARISON WITH FULL DATASET:
+  Full dataset:  70,000 images
+  Selected:      10,000 images (14.3%)
+  
+  Full dataset score range: 0.1567 - 0.2628
+  Top 10k score range:      0.2111 - 0.2628

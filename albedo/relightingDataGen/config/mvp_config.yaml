@@ -1,0 +1,104 @@
+# MVP Configuration for IC-Light Data Generation
+# Implements paper Section 3.1 with 2-3 albedo methods and degradation synthesis
+
+# Segmentation configuration
+sam3:
+  enabled: true  # Set to false to use SAM2 fallback
+  text_prompt: "person"  # Text prompt for SAM3 (e.g., "person", "entire person")
+  multimask_output: false
+
+# SAM2 fallback configuration (used if SAM3 unavailable)
+sam2:
+  multimask_output: false
+  # Optional: Manual point prompts for SAM2 (if not provided, uses center point)
+  # point_coords: [[512, 512]]  # List of [x, y] coordinates
+  # point_labels: [1]  # 1 = foreground, 0 = background
+
+# Albedo extraction configuration
+albedo_extraction:
+  methods:
+    intrinsic_anything:
+      enabled: false  # Set to true when checkpoint is available
+      checkpoint_dir: "models/intrinsic_anything"
+
+    retinex:
+      enabled: true
+      scales: [15, 80, 250]  # Multi-scale Retinex scales
+
+    lab:
+      enabled: true  # Always enabled as fallback
+
+  selection: "priority"  # Try in order: intrinsic_anything -> retinex -> lab
+
+  # Blend with original to reduce whiteness
+  blend_with_original:
+    enabled: true  # Mix some % of original image to reduce over-brightening
+    ratio_range: [0.15, 0.25]  # 15-25% original image mixed in
+    # 0.0 = pure albedo (brightest, too white)
+    # 0.2 = 20% original (recommended)
+    # 0.5 = 50/50 mix
+    # 1.0 = pure original (no extraction)
+
+# Degradation synthesis configuration
+degradation:
+  # Soft shading (normal-based Lambertian shading) ⭐ PRIMARY METHOD
+  soft_shading:
+    weight: 0.8  # 80% probability - MAIN METHOD
+    normal_estimation: "MiDaS_small"  # Options: MiDaS_small, DPT_Hybrid, DPT_Large
+    ambient_range: [0.6, 0.85]  # VERY HIGH ambient = VERY LIGHT shadows (was [0.1, 0.3])
+    specular_intensity_range: [0.05, 0.2]  # Lower specular
+    shininess_range: [10, 100]
+    add_subtle_patterns: true  # Add subtle shadow patterns
+    pattern_opacity: [0.35, 0.6]  # DARKER patterns (was [0.15, 0.35])
+    pattern_blur_range: [21, 51]  # Sharper patterns (was [31, 71])
+
+  # Hard shadow (DISABLED - too dark and unnatural)
+  hard_shadow:
+    weight: 0.0  # DISABLED
+    opacity_range: [0.1, 0.3]
+    shadow_softness: 0.7
+    blur_range: [31, 111]
+    num_patterns: 200
+    use_patterns: true
+
+  # Specular reflection (DISABLED - too strong)
+  specular:
+    weight: 0.0  # DISABLED
+    intensity_range: [0.1, 0.5]
+    shininess_range: [10, 100]
+
+  # Advanced shading (DISABLED - too dark and complex)
+  advanced_shading:
+    weight: 0.0  # DISABLED
+    # Use only soft_shading for now
+
+# Light sampling configuration
+light_sampling:
+  method: "hemisphere_uniform"
+  elevation_range: [10, 80]  # Degrees from horizon
+  azimuth_range: [0, 360]  # Full rotation
+
+# Background recombination configuration
+background:
+  use_gray: true  # If true, use gray background instead of original
+  gray_color: [128, 128, 128]  # RGB values for gray (#808080)
+
+# Memory management
+memory:
+  max_gpu_memory_gb: 22  # For A5000 24GB
+  clear_cache_between_stages: true
+
+# Paths
+paths:
+  data_root: "data"
+  output_root: "data/outputs"
+  models_root: "models"
+
+# Pipeline settings
+pipeline:
+  name: "ffhq_relighting_mvp"
+  stages:
+    - segmentation  # Stage 1: SAM2
+    - albedo        # Stage 2: Albedo extraction
+    - shadow        # Stage 3: Degradation synthesis
+    # captioning disabled for MVP

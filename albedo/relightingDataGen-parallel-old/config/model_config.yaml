@@ -1,0 +1,46 @@
+sam2:
+  model_type: "sam2.1_hiera_large"
+  checkpoint_name: "sam2.1_hiera_large.pt"
+  text_prompt: "face"
+  multimask_output: false
+
+intrinsic_anything:
+  checkpoint_path: "zju3dv/IntrinsicAnything"
+  num_inference_steps: 20
+  use_fp16: true
+
+ic_light:
+  checkpoint_path: "lllyasviel/IC-Light"
+  model_variant: "iclight_sd15_fc"  # foreground conditioned
+  base_model: "runwayml/stable-diffusion-v1-5"
+  num_inference_steps: 25
+  controlnet_conditioning_scale: 0.8
+  use_fp16: true
+  enable_attention_slicing: true
+
+shadow_generation:
+  num_variations: 1  # Generate 1 variation per image for PoC
+  light_directions:
+    - [0.5, 0.5, 1.0]   # Top-right
+    - [-0.5, 0.5, 1.0]  # Top-left
+    - [0.0, -0.5, 1.0]  # Bottom
+    - [0.0, 0.5, 1.0]   # Top center
+  shadow_intensity: [0.3, 0.7]
+  shadow_softness: [0.2, 0.8]
+
+qwen_vl:
+  model_name: "Qwen/Qwen2.5-VL-7B-Instruct"
+  use_8bit: true
+  max_new_tokens: 256
+  temperature: 0.7
+  do_sample: true
+
+captioning_prompt: |
+  Describe this portrait image in detail. Include:
+  1. The person's appearance and facial features
+  2. The lighting conditions (direction, quality, intensity)
+  3. Shadow characteristics (hard/soft, direction)
+  4. Overall color palette and mood
+  5. Composition and framing
+
+  Be specific about lighting and shadows.

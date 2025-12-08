@@ -1,0 +1,254 @@
+# =============================================================================
+# Combined .gitignore for image-relighting-diffusion-code
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+.installed.cfg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Translations
+*.mo
+*.pot
+
+# SageMath parsed files
+*.sage.py
+
+# -----------------------------------------------------------------------------
+# Virtual Environments
+# -----------------------------------------------------------------------------
+venv/
+env/
+ENV/
+.venv
+.conda/
+env.bak/
+venv.bak/
+
+# pyenv
+.python-version
+
+# -----------------------------------------------------------------------------
+# IDE & Editors
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.code-workspace
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# IPython
+profile_default/
+ipython_config.py
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebooks
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+.ipynb_checkpoints
+*.ipynb
+*-Copy*.ipynb
+
+# -----------------------------------------------------------------------------
+# Testing & Coverage
+# -----------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# -----------------------------------------------------------------------------
+# Type Checking
+# -----------------------------------------------------------------------------
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# -----------------------------------------------------------------------------
+# Model Checkpoints & Weights
+# -----------------------------------------------------------------------------
+models/
+!models/.gitkeep
+!models/*/README.md
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.bin
+weights/
+checkpoints/
+sam3_logs/
+
+# Torch Hub Cache
+.cache/
+torch/hub/
+
+# -----------------------------------------------------------------------------
+# Data Directories
+# -----------------------------------------------------------------------------
+data/raw/
+data/stage_1/
+data/stage_2/
+data/stage_3/
+data/stage_4/
+data/outputs/
+!data/.gitkeep
+!data/raw/.gitkeep
+!data/stage_1/.gitkeep
+!data/stage_2/.gitkeep
+!data/stage_3/.gitkeep
+!data/stage_4/.gitkeep
+!data/outputs/.gitkeep
+
+# Dataset directories (filter_images)
+ffhq_github/
+ffhq_test_10k/
+test_output/
+
+# -----------------------------------------------------------------------------
+# Images (exclude large image datasets)
+# -----------------------------------------------------------------------------
+*.png
+*.jpg
+*.jpeg
+
+# But KEEP verification and analysis images
+!ffhq_verification/*.png
+!ffhq_analysis/*.png
+!test_verification/*.png
+
+# -----------------------------------------------------------------------------
+# Large Binary & Data Files
+# -----------------------------------------------------------------------------
+*.npy
+*.npz
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Downloaded datasets / archives
+*.zip
+*.tar.gz
+*.tar
+
+# BPE vocabulary files
+*.bpe
+*.vocab
+
+# -----------------------------------------------------------------------------
+# Logs & Temporary Files
+# -----------------------------------------------------------------------------
+logs/
+*.log
+tmp/
+temp/
+*.tmp
+*.bak
+*.backup
+offload/
+offload_weights/
+
+# -----------------------------------------------------------------------------
+# MLOps
+# -----------------------------------------------------------------------------
+wandb/
+mlruns/
+runs/
+tensorboard/
+events.out.tfevents.*
+
+# -----------------------------------------------------------------------------
+# System Files
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# -----------------------------------------------------------------------------
+# Environment Variables
+# -----------------------------------------------------------------------------
+.env
+.env.local
+
+# -----------------------------------------------------------------------------
+# Documentation
+# -----------------------------------------------------------------------------
+docs/_build/
+/site
+
+# -----------------------------------------------------------------------------
+# Framework-Specific
+# -----------------------------------------------------------------------------
+
+# Django
+local_settings.py
+db.sqlite3
+
+# Flask
+instance/
+.webassets-cache
+
+# Scrapy
+.scrapy
+
+# Celery
+celerybeat-schedule
+
+# -----------------------------------------------------------------------------
+# Project Specific
+# -----------------------------------------------------------------------------
+config/local_*.yaml
+debug/
+test_*.png
+test_*.jpg
+test_albedo.png
+test_shadow.png
+test_shading.png
+

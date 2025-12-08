@@ -1,0 +1,85 @@
+
+TOP 12,000 IMAGES WITH RANDOM SPLIT (seed=42)
+======================================================================
+
+SELECTION CRITERIA:
+  - Top 12,000 images by lighting score from 70k dataset
+  - Includes ALL 11,654 images with score > 0.210
+  - Plus 346 additional high-quality images (0.2098 - 0.210)
+  - Randomly shuffled with seed=42 before splitting
+
+======================================================================
+OVERALL STATISTICS (12,000 images):
+======================================================================
+  Score Range:  0.209784 - 0.262844
+  Mean Score:   0.215953
+  Median Score: 0.214466
+  Std Dev:      0.005432
+  
+  Images > 0.210: 11,654 (97.1%)
+  Images ≤ 0.210:    346 (2.9%)
+
+======================================================================
+TRAINING SET (10,000 images - 83.3%):
+======================================================================
+  Score Range:  0.209784 - 0.262844
+  Mean Score:   0.215959
+  Median Score: 0.214475
+  Std Dev:      0.005428
+  
+  Images > 0.210:  9,709 (97.1%)
+  Images ≤ 0.210:    291 (2.9%)
+
+======================================================================
+VALIDATION SET (1,000 images - 8.3%):
+======================================================================
+  Score Range:  0.209786 - 0.253501
+  Mean Score:   0.216169
+  Median Score: 0.214527
+  Std Dev:      0.005710
+  
+  Images > 0.210:    970 (97.0%)
+  Images ≤ 0.210:     30 (3.0%)
+
+======================================================================
+TEST SET (1,000 images - 8.3%):
+======================================================================
+  Score Range:  0.209794 - 0.250285
+  Mean Score:   0.215674
+  Median Score: 0.214267
+  Std Dev:      0.005177
+  
+  Images > 0.210:    975 (97.5%)
+  Images ≤ 0.210:     25 (2.5%)
+
+======================================================================
+SCORE DISTRIBUTION ACROSS SPLITS:
+======================================================================
+Threshold  | Train        | Val         | Test        | Total
+-----------|--------------|-------------|-------------|-------------
+≥ 0.250    |     4 ( 0.0%) |    2 ( 0.2%) |    1 ( 0.1%) |     7 ( 0.1%)
+≥ 0.240    |    31 ( 0.3%) |    4 ( 0.4%) |    2 ( 0.2%) |    37 ( 0.3%)
+≥ 0.230    |   231 ( 2.3%) |   26 ( 2.6%) |   20 ( 2.0%) |   277 ( 2.3%)
+≥ 0.220    | 1,927 (19.3%) |  210 (21.0%) |  172 (17.2%) | 2,309 (19.2%)
+≥ 0.215    | 4,617 (46.2%) |  476 (47.6%) |  436 (43.6%) | 5,529 (46.1%)
+≥ 0.210    | 9,709 (97.1%) |  970 (97.0%) |  975 (97.5%) |11,654 (97.1%)
+
+======================================================================
+FILES IN THIS DIRECTORY:
+======================================================================
+  ✅ top_12k_scores.csv       - All 12k images with scores
+  ✅ top_12k_image_paths.txt  - Just image paths
+  ✅ train_images.csv         - 10,000 training images
+  ✅ val_images.csv           - 1,000 validation images
+  ✅ test_images.csv          - 1,000 test images
+  ✅ split_distributions.png  - Score distribution visualizations
+  ✅ split_samples.png        - Sample images from each split
+  ✅ SUMMARY.txt              - This summary file
+
+======================================================================
+NOTES:
+======================================================================
+  • Random split ensures similar score distributions across train/val/test
+  • All splits contain mix of scores above and below 0.210 threshold
+  • Seed=42 makes this split reproducible
+  • Train/Val/Test ratios: 83.3% / 8.3% / 8.3%

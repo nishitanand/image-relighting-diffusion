@@ -1,0 +1,6 @@
+name: clip
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+prefix: /mnt/localssd/miniconda/envs/clip
