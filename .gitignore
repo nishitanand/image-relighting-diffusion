@@ -180,6 +180,7 @@ test_output/
 # BPE vocabulary files
 *.bpe
 *.vocab
+*.pdf
 
 # -----------------------------------------------------------------------------
 # Logs & Temporary Files
