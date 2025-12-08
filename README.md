@@ -3,60 +3,72 @@
 A complete end-to-end pipeline for training image relighting models based on the IC-Light methodology. This project enables you to:
 
 1. **Filter** high-quality images with good lighting from large datasets
-2. **Generate** relighting training data (albedo extraction + degradation synthesis)
-3. **Train** instruction-based image editing models (InstructPix2Pix)
+2. **Generate** albedo/degraded images (training pairs)
+3. **Caption** images with lighting keywords using VLM
+4. **Train** instruction-based image editing models (InstructPix2Pix)
 
 ## 🎯 Pipeline Overview
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                        IMAGE RELIGHTING PIPELINE                            │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│   STEP 1                    STEP 2                      STEP 3              │
-│   ───────                   ───────                     ───────             │
-│                                                                             │
-│   filter_images/     →     albedo/                  →   training/           │
-│                            relightingDataGen-parallel                       │
-│                                                                             │
-│   ┌─────────────┐          ┌─────────────────┐          ┌──────────────┐   │
-│   │ FFHQ 70k    │          │ Filtered Images │          │ Triplet Data │   │
-│   │ Images      │    →     │ (12k well-lit)  │    →     │ (input,inst, │   │
-│   └─────────────┘          └─────────────────┘          │  output)     │   │
-│         │                         │                     └──────────────┘   │
-│         ▼                         ▼                            │            │
-│   ┌─────────────┐          ┌─────────────────┐                 ▼            │
-│   │ CLIP Filter │          │ • SAM3 Segment  │          ┌──────────────┐   │
-│   │ Lighting    │          │ • Albedo Extract│          │ Train Model  │   │
-│   │ Quality     │          │ • Degradation   │          │ SD1.5 / SDXL │   │
-│   └─────────────┘          └─────────────────┘          └──────────────┘   │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────────┐
+│                           IMAGE RELIGHTING PIPELINE                                  │
+├──────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                      │
+│  STEP 1              STEP 2                   STEP 3              STEP 4             │
+│  ──────              ──────                   ──────              ──────             │
+│                                                                                      │
+│  filter_images/  →   albedo/                →  edit_keywords/  →   training/         │
+│                      relightingDataGen-                                              │
+│                      parallel                                                        │
+│                                                                                      │
+│  ┌────────────┐      ┌──────────────────┐     ┌──────────────┐    ┌─────────────┐   │
+│  │ FFHQ 70k   │      │ Filtered Images  │     │ CSV +        │    │ Triplet     │   │
+│  │ Images     │  →   │ + Degraded       │  →  │ Keywords     │ →  │ Training    │   │
+│  └────────────┘      │ Outputs          │     └──────────────┘    └─────────────┘   │
+│        │             └──────────────────┘            │                   │          │
+│        ▼                     │                       ▼                   ▼          │
+│  ┌────────────┐              ▼               ┌──────────────┐    ┌─────────────┐   │
+│  │ CLIP       │      ┌──────────────────┐    │ VLM          │    │ Train       │   │
+│  │ Lighting   │      │ • SAM3 Segment   │    │ (Mistral/    │    │ SD1.5/SDXL  │   │
+│  │ Filter     │      │ • Albedo Extract │    │  GPT-4)      │    │ Model       │   │
+│  └────────────┘      │ • Degradation    │    └──────────────┘    └─────────────┘   │
+│                      └──────────────────┘                                           │
+│                                                                                      │
+└──────────────────────────────────────────────────────────────────────────────────────┘
+
+TRAINING DATA MAPPING:
+┌─────────────────────────────────────────────────────────────────────────────────────┐
+│  Training Input  = Degraded Image (flat lighting from Step 2)                       │
+│  Instruction     = Lighting Keywords (from Step 3: "sunlight through blinds")       │
+│  Training Output = Original Image (real lighting)                                   │
+└─────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ## 📁 Project Structure
 
 ```
 image-relighting-diffusion/
-├── filter_images/                    # Step 1: Image filtering
-│   ├── filter_lighting_images.py     # CLIP-based lighting filter
-│   ├── verify_filtering.py           # Verification tools
-│   └── analyze_results.py            # Create train/val/test splits
+├── filter_images/                    # Step 1: Image filtering (CLIP-based)
+│   ├── filter_lighting_images.py     
+│   ├── verify_filtering.py           
+│   └── analyze_results.py            
 │
 ├── albedo/                           # Step 2: Training data generation
-│   └── relightingDataGen-parallel/   # Multi-GPU parallel processing
+│   └── relightingDataGen-parallel/   
 │       ├── scripts/
-│       │   └── run_multi_gpu_batched.py  # Main entry point
+│       │   └── run_multi_gpu_batched.py
+│       ├── albedo_csv_files/         # Output CSVs saved here
 │       └── src/
-│           ├── stages/
-│           │   ├── stage_1_segmentation_sam3.py  # SAM3/SAM2 segmentation
-│           │   ├── stage_2_albedo.py              # Albedo extraction
-│           │   └── stage_3_shadow.py              # Degradation synthesis
-│           └── utils/                             # Helper modules
+│           └── stages/               # SAM3, Albedo, Shadow stages
 │
-└── training/                         # Step 3: Model training
-    ├── sd1_5/                        # Stable Diffusion 1.5 (fast)
-    ├── sdxl/                         # Stable Diffusion XL (best quality)
+├── edit_keywords/                    # Step 3: Lighting keywords generation
+│   ├── generate_keywords.py          # VLM-based keyword generation
+│   ├── prepare_training_data.py      # Convert to training format
+│   └── README.md
+│
+└── training/                         # Step 4: Model training
+    ├── sd1_5/                        # Stable Diffusion 1.5
+    ├── sdxl/                         # Stable Diffusion XL
     └── flux/                         # Flux (experimental)
 ```
 
@@ -66,16 +78,16 @@ image-relighting-diffusion/
 
 - Python 3.10+
 - CUDA-capable GPU (24GB+ VRAM recommended)
-- Conda or virtualenv
+- API key for VLM (Mistral or OpenAI)
 
-### Step 1: Filter Images (Optional but Recommended)
+---
+
+### Step 1: Filter Images
 
 Select high-quality, well-lit images from your dataset using CLIP-based filtering.
 
 ```bash
 cd filter_images
-
-# Install dependencies
 pip install -r requirements.txt
 
 # Filter top 12k images with best lighting
@@ -98,9 +110,9 @@ python analyze_results.py \
 
 ---
 
-### Step 2: Generate Relighting Training Data
+### Step 2: Generate Albedo/Degraded Images
 
-Process filtered images through the IC-Light pipeline to create (input, degraded_output) pairs.
+Process filtered images to create degraded versions (flat lighting) for training pairs.
 
 ```bash
 cd albedo/relightingDataGen-parallel
@@ -117,40 +129,74 @@ pip install git+https://github.com/facebookresearch/sam2.git
 # Run multi-GPU processing
 python scripts/run_multi_gpu_batched.py \
     --config config/mvp_config.yaml \
-    --csv /path/to/filter_images/output/train_images.csv \
+    --csv ../../filter_images/output/train_images.csv \
     --num-gpus 8 \
     --batch-size 8
 ```
 
-**Pipeline stages**:
-1. **SAM3/SAM2 Segmentation** - Extract foreground from background
-2. **Albedo Extraction** - Remove lighting using Retinex/LAB methods
-3. **Degradation Synthesis** - Apply new lighting (soft shading, hard shadows, specular)
-
-**Output**: Training triplets in `data/outputs/`
+**Output**: 
+- Images in `data-train/`
+- CSV in `albedo_csv_files/train_images_with_albedo.csv`
 
 📖 See [`albedo/relightingDataGen-parallel/README.md`](albedo/relightingDataGen-parallel/README.md) for details.
 
 ---
 
-### Step 3: Train the Model
+### Step 3: Generate Lighting Keywords
+
+Use a VLM to generate lighting description keywords for each original image.
+
+```bash
+cd edit_keywords
+pip install -r requirements.txt
+
+# Set your API key
+export MISTRAL_API_KEY="your-api-key"
+
+# Generate keywords
+python generate_keywords.py \
+    --csv ../albedo/relightingDataGen-parallel/albedo_csv_files/train_images_with_albedo.csv \
+    --output_dir ./output \
+    --provider mistral \
+    --num_workers 4
+```
+
+**Output**: CSV with 4 columns:
+- `image_path` → Original image (becomes training OUTPUT)
+- `lighting_score` → CLIP score
+- `output_image_path` → Degraded image (becomes training INPUT)
+- `lighting_keywords` → Edit instruction (e.g., "sunlight through blinds, indoor")
+
+**Example Keywords Generated**:
+| Image | Keywords |
+|-------|----------|
+| Portrait with window | "sunlight through the blinds, near window blinds" |
+| Beach scene | "sunlight from the left side, beach" |
+| Forest portrait | "magic golden lit, forest" |
+| Night cityscape | "neo punk, city night" |
+
+📖 See [`edit_keywords/README.md`](edit_keywords/README.md) for details.
+
+---
+
+### Step 4: Train the Model
 
 Train an InstructPix2Pix model on your generated data.
 
 ```bash
-cd training/sd1_5  # Start with SD 1.5 for fast prototyping
-
-# Install dependencies
+cd training/sd1_5
 pip install -r requirements.txt
 
-# Prepare data
-python validate_data.py --data_dir /path/to/triplet_data
-python convert_to_hf_dataset.py --data_dir /path/to/triplet_data --output_dir ./data_hf
+# Prepare training data
+python ../../edit_keywords/prepare_training_data.py \
+    --csv ../../edit_keywords/output/train_images_with_albedo_with_keywords.csv \
+    --output_dir ./data_triplets
 
-# Configure accelerate for multi-GPU
+# Convert to HuggingFace dataset
+python convert_to_hf_dataset.py --data_dir ./data_triplets --output_dir ./data_hf
+
+# Configure and train
 ./setup_accelerate.sh
-
-# Train! (~1.5-2 days on 8xA100)
 ./train.sh --data_dir ./data_hf
 ```
 
@@ -158,19 +204,7 @@ python convert_to_hf_dataset.py --data_dir /path/to/triplet_data --output_dir ./
 
 ---
 
-## 📊 Model Comparison
-
-| Model | Quality | Training Time | Resolution | Status |
-|-------|---------|---------------|------------|--------|
-| **SD 1.5** | Good ⭐⭐⭐ | ~1.5-2 days | 512×512 | ✅ Ready |
-| **SDXL** | Excellent ⭐⭐⭐⭐⭐ | ~3-5 days | 1024×1024 | ✅ Ready |
-| **Flux** | Best? ⭐⭐⭐⭐⭐⭐ | TBD | 1024×1024 | ⏳ Experimental |
-
-**Recommendation**: Start with **SD 1.5** for rapid prototyping, then scale to **SDXL** for production.
-
----
-
-## 💡 Typical End-to-End Workflow
+## 💡 Complete End-to-End Workflow
 
 ```bash
 # ═══════════════════════════════════════════════════════════════
@@ -188,37 +222,65 @@ python analyze_results.py \
     --create_splits
 
 # ═══════════════════════════════════════════════════════════════
-# STEP 2: Generate Training Data (~2-4 hours for 10k images)
+# STEP 2: Generate Albedo/Degraded Images (~2-4 hours for 10k)
 # ═══════════════════════════════════════════════════════════════
 cd ../albedo/relightingDataGen-parallel
 conda activate sam3
 
 python scripts/run_multi_gpu_batched.py \
     --config config/mvp_config.yaml \
-    --csv ../filter_images/ffhq_filtered/train_images.csv \
+    --csv ../../filter_images/ffhq_filtered/train_images.csv \
     --num-gpus 8 \
     --batch-size 8
 
 # ═══════════════════════════════════════════════════════════════
-# STEP 3: Train Model (~1.5-2 days for SD1.5)
+# STEP 3: Generate Lighting Keywords (~1-2 hours for 10k)
 # ═══════════════════════════════════════════════════════════════
-cd ../../training/sd1_5
+cd ../../edit_keywords
+export MISTRAL_API_KEY="your-key"
+
+python generate_keywords.py \
+    --csv ../albedo/relightingDataGen-parallel/albedo_csv_files/train_images_with_albedo.csv \
+    --output_dir ./output \
+    --provider mistral
+
+# Prepare training format
+python prepare_training_data.py \
+    --csv ./output/train_images_with_albedo_with_keywords.csv \
+    --output_dir ../training/sd1_5/data_triplets
+
+# ═══════════════════════════════════════════════════════════════
+# STEP 4: Train Model (~1.5-2 days for SD1.5)
+# ═══════════════════════════════════════════════════════════════
+cd ../training/sd1_5
 
 python convert_to_hf_dataset.py \
-    --data_dir /path/to/generated/data \
+    --data_dir ./data_triplets \
     --output_dir ./data_hf
 
 ./train.sh --data_dir ./data_hf
 
 # ═══════════════════════════════════════════════════════════════
-# STEP 4: Inference
+# INFERENCE
 # ═══════════════════════════════════════════════════════════════
 python inference.py \
     --model_path ./output/instruct-pix2pix-sd15 \
     --input_image test.jpg \
-    --instruction "change the lighting to sunset" \
+    --instruction "sunlight through the blinds, near window" \
     --output_path result.png
 ```
+
+---
+
+## 📊 Model Comparison
+
+| Model | Quality | Training Time | Resolution | Status |
+|-------|---------|---------------|------------|--------|
+| **SD 1.5** | Good ⭐⭐⭐ | ~1.5-2 days | 512×512 | ✅ Ready |
+| **SDXL** | Excellent ⭐⭐⭐⭐⭐ | ~3-5 days | 1024×1024 | ✅ Ready |
+| **Flux** | Best? ⭐⭐⭐⭐⭐⭐ | TBD | 1024×1024 | ⏳ Experimental |
+
+**Recommendation**: Start with **SD 1.5** for rapid prototyping, then scale to **SDXL** for production.
 
 ---
 
@@ -230,12 +292,14 @@ python inference.py \
 | **RAM** | 32GB | 64GB+ |
 | **Storage** | 500GB | 2TB+ SSD |
 
-### Per-Component GPU Usage
+### Per-Step Resource Usage
 
-- **Filter Images**: ~4GB (CLIP model)
-- **Data Generation**: ~8-12GB peak (SAM + MiDaS)
-- **Training SD 1.5**: ~35-45GB per GPU
-- **Training SDXL**: ~60-70GB per GPU
+| Step | GPU Memory | Time (10k images) |
+|------|------------|-------------------|
+| 1. Filter Images | ~4GB | ~1-2 hours |
+| 2. Generate Albedo | ~8-12GB/GPU | ~2-4 hours (8 GPU) |
+| 3. Edit Keywords | 0 (API) or ~24GB | ~1-2 hours |
+| 4. Training SD1.5 | ~35-45GB/GPU | ~1.5-2 days |
 
 ---
 
@@ -244,10 +308,9 @@ python inference.py \
 | Component | Documentation |
 |-----------|---------------|
 | Image Filtering | [`filter_images/README.md`](filter_images/README.md) |
-| Data Generation | [`albedo/relightingDataGen-parallel/README.md`](albedo/relightingDataGen-parallel/README.md) |
+| Albedo Generation | [`albedo/relightingDataGen-parallel/README.md`](albedo/relightingDataGen-parallel/README.md) |
+| Keyword Generation | [`edit_keywords/README.md`](edit_keywords/README.md) |
 | Model Training | [`training/README.md`](training/README.md) |
-| SD 1.5 Training | [`training/sd1_5/README.md`](training/sd1_5/README.md) |
-| SDXL Training | [`training/sdxl/README.md`](training/sdxl/README.md) |
 
 ---
 
@@ -255,12 +318,22 @@ python inference.py \
 
 This pipeline implements the training data generation approach from the **IC-Light paper** (Section 3.1):
 
-1. **Albedo Extraction**: Remove existing lighting from images to get intrinsic reflectance
-2. **Degradation Synthesis**: Apply new, varied illumination:
-   - **Soft Shading** (40%): Lambertian shading with MiDaS normals
-   - **Hard Shadows** (40%): Procedural shadow patterns
-   - **Specular Highlights** (20%): Phong specular reflections
-3. **Training Pairs**: Create (original, degraded) pairs for instruction-following model training
+### Training Data Creation
+
+1. **Original Image** → Has real-world lighting (shadows, highlights, etc.)
+2. **Albedo Extraction** → Remove lighting to get flat, uniformly-lit image
+3. **Degradation** → Apply synthetic lighting variations
+4. **Keywords** → VLM describes the original image's lighting
+
+### Training Objective
+
+The model learns:
+> "Given a flat-lit/degraded image + lighting description → Produce realistically lit output"
+
+This is the **inverse** of traditional relighting:
+- **Input**: Degraded image (flat lighting)
+- **Instruction**: Lighting keywords ("sunlight through blinds")
+- **Output**: Original image (with real lighting)
 
 ---
 
@@ -275,8 +348,6 @@ This pipeline implements the training data generation approach from the **IC-Lig
 ---
 
 ## 📝 Citation
-
-If you use this pipeline, please cite:
 
 ```bibtex
 @inproceedings{iclight2024,
@@ -293,15 +364,6 @@ If you use this pipeline, please cite:
   year={2023}
 }
 ```
-
----
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
 
 ---
 

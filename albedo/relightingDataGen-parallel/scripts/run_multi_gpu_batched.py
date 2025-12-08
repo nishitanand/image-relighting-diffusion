@@ -425,11 +425,17 @@ def main():
                 df_updated.loc[idx, 'output_image_path'] = result['output_path']
                 successful += 1
     
-    # Save updated CSV
-    csv_dir = Path(args.csv).parent
+    # Save updated CSV to albedo_csv_files folder
+    albedo_csv_dir = Path(project_root) / "albedo_csv_files"
+    albedo_csv_dir.mkdir(parents=True, exist_ok=True)
+    
     csv_name = Path(args.csv).stem
-    output_csv_path = csv_dir / f"{csv_name}_with_relighting_outputs.csv"
+    output_csv_path = albedo_csv_dir / f"{csv_name}_with_albedo.csv"
     df_updated.to_csv(output_csv_path, index=False)
+    
+    # Also save a copy in the original location for backwards compatibility
+    legacy_csv_path = Path(args.csv).parent / f"{csv_name}_with_relighting_outputs.csv"
+    df_updated.to_csv(legacy_csv_path, index=False)
     
     # Print summary
     print(f"\n{'='*60}")
@@ -443,7 +449,10 @@ def main():
     print(f"Batch size: {args.batch_size}")
     print(f"\nOutputs:")
     print(f"  Images: {output_root}/")
-    print(f"  CSV: {output_csv_path}")
+    print(f"  CSV (primary): {output_csv_path}")
+    print(f"  CSV (legacy): {legacy_csv_path}")
+    print(f"\n📋 Next Step: Run edit_keywords to generate lighting descriptions")
+    print(f"   python ../../edit_keywords/generate_keywords.py --csv {output_csv_path}")
     print(f"{'='*60}\n")
     
     # Show per-GPU stats
