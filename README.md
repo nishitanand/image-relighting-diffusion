@@ -1,6 +1,6 @@
 # Image Relighting with Diffusion Models
 
-A complete end-to-end pipeline for training image relighting models based on the IC-Light methodology. This project enables you to:
+A complete end-to-end pipeline for training image relighting models. This project enables you to:
 
 1. **Filter** high-quality images with good lighting from large datasets
 2. **Generate** albedo/degraded images (training pairs)
@@ -319,8 +319,6 @@ python inference.py \
 
 ## 🔬 Methodology
 
-This pipeline implements the training data generation approach from the **IC-Light paper** (Section 3.1):
-
 ### Training Data Creation
 
 1. **Original Image** → Has real-world lighting (shadows, highlights, etc.)
@@ -342,33 +340,11 @@ This is the **inverse** of traditional relighting:
 
 ## 📖 References
 
-- **IC-Light Paper**: [ICLR 2024](https://openreview.net/pdf?id=u1cQYxRI1H)
-- **InstructPix2Pix**: [arXiv:2211.09800](https://arxiv.org/abs/2211.09800)
 - **Qwen3-VL**: [HuggingFace](https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct) | [GitHub](https://github.com/QwenLM/Qwen3-VL)
 - **vLLM**: [Docs](https://docs.vllm.ai/) | [Qwen3-VL Guide](https://docs.vllm.ai/projects/recipes/en/latest/Qwen/Qwen3-VL.html)
 - **SAM2/SAM3**: [GitHub](https://github.com/facebookresearch/sam2)
 - **CLIP**: [OpenAI](https://github.com/openai/CLIP)
 - **HuggingFace Diffusers**: [GitHub](https://github.com/huggingface/diffusers)
-
----
-
-## 📝 Citation
-
-```bibtex
-@inproceedings{iclight2024,
-  title={IC-Light: Illumination-Conditioned Image Generation},
-  author={Zhang, Lvmin and Rao, Anyi and Agrawala, Maneesh},
-  booktitle={ICLR},
-  year={2024}
-}
-
-@inproceedings{brooks2023instructpix2pix,
-  title={InstructPix2Pix: Learning to Follow Image Editing Instructions},
-  author={Brooks, Tim and Holynski, Aleksander and Efros, Alexei A},
-  booktitle={CVPR},
-  year={2023}
-}
-```
 
 ---
 

@@ -308,10 +308,8 @@ After successfully training on SD 1.5:
 
 ## 📖 References
 
-- **InstructPix2Pix Paper**: https://arxiv.org/abs/2211.09800
 - **Official HF Script**: https://github.com/huggingface/diffusers/tree/main/examples/instruct_pix2pix
 - **Diffusers Docs**: https://huggingface.co/docs/diffusers
-- **Original InstructPix2Pix**: https://www.timothybrooks.com/instruct-pix2pix/
 
 ## 📄 License
 

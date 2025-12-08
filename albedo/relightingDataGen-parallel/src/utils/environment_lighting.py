@@ -2,7 +2,7 @@
 Environment lighting using Spherical Harmonics.
 
 Provides natural ambient illumination from sky dome and environment maps.
-Based on Ravi Ramamoorthi's work on Spherical Harmonic lighting.
+Spherical Harmonic lighting utilities.
 """
 
 import numpy as np

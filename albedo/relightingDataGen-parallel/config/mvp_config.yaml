@@ -1,4 +1,4 @@
-# MVP Configuration for IC-Light Data Generation
+# MVP Configuration for Relighting Data Generation
 # Implements paper Section 3.1 with 2-3 albedo methods and degradation synthesis
 
 # Segmentation configuration

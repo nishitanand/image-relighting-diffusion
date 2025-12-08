@@ -97,12 +97,9 @@ sam2:
 
 ## Research Findings
 
-### IC-Light Paper Section 3.1: How Albedo + Shadows Work
+### How Albedo + Shadows Work
 
 **Key Insight:** "Degradation images" are NOT corrupted images - they are the **same object with different lighting**.
-
-From the paper:
-> "We generate a 'degradation appearance' that shares the same intrinsic albedo as the original image, but has completely altered illuminations"
 
 **Process:**
 1. **Extract albedo** - Remove ALL existing lighting (shadows, highlights, shading)

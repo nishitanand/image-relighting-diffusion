@@ -195,8 +195,6 @@ Each folder contains:
 
 ### Official Repositories
 - **HuggingFace Diffusers**: https://github.com/huggingface/diffusers
-- **InstructPix2Pix Paper**: https://arxiv.org/abs/2211.09800
-- **SDXL Paper**: https://arxiv.org/abs/2307.01952
 - **Flux**: https://github.com/black-forest-labs/flux
 
 ### Training Scripts
@@ -244,6 +242,6 @@ python convert_to_hf_dataset.py --data_dir /path/to/data --output_dir ./data_hf
 
 **Current Recommendation**: Start with **SD 1.5** for prototyping, then scale to **SDXL** for production.
 
-**Future**: Monitor for Flux InstructPix2Pix release for state-of-the-art quality.
+**Future**: Monitor for Flux instruction-tuning release for state-of-the-art quality.
 
 Happy Training! 🚀

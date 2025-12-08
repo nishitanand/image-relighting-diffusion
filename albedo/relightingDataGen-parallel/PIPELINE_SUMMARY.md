@@ -8,7 +8,7 @@ Here's what the pipeline actually does:
 
 ## 📋 Pipeline Overview
 
-The code follows the **IC-Light paper (Section 3.1)** to generate training data for image relighting models.
+The code generates training data for image relighting models.
 
 ### Full Pipeline Flow:
 
@@ -100,7 +100,7 @@ Final Output: Image with SAME person, SAME background, but DIFFERENT lighting
 **Your understanding:** ⚠️ **PARTIALLY CORRECT** - "adds degradations to it"
 - You said "adds degradations" which is correct
 - But "degradation" here means **new lighting**, not corruption/noise
-- The IC-Light paper uses "degradation" to mean "altered illumination"
+- "Degradation" here means "altered illumination"
 
 **Key file:** `src/stages/stage_3_shadow.py`
 
@@ -226,11 +226,9 @@ data/
 
 ---
 
-## 🎓 Key Concepts from IC-Light Paper
+## 🎓 Key Concepts
 
 ### What are "Degradation Images"?
-From the paper:
-> "We generate a 'degradation appearance' that shares the same intrinsic albedo as the original image, but has completely altered illuminations"
 
 **NOT** corrupted/noisy images, but:
 - Same object with same albedo

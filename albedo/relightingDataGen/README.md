@@ -380,24 +380,10 @@ degraded.save('test_shading.png')
 
 ## References
 
-- **IC-Light Paper:** [OpenReview](https://openreview.net/pdf?id=u1cQYxRI1H)
 - **SAM3:** [Docs](https://docs.ultralytics.com/models/sam-3/) | [GitHub](https://github.com/facebookresearch/sam3)
 - **SAM2:** [GitHub](https://github.com/facebookresearch/sam2)
 - **MiDaS:** [GitHub](https://github.com/isl-org/MiDaS) | [PyTorch Hub](https://pytorch.org/hub/intelisl_midas_v2/)
 - **IntrinsicAnything:** [GitHub](https://github.com/zju3dv/IntrinsicAnything)
-
-## Citation
-
-If you use this pipeline, please cite the IC-Light paper:
-
-```bibtex
-@inproceedings{iclight2024,
-  title={IC-Light: Illumination-Conditioned Image Generation},
-  author={Zhang, Lvmin and Rao, Anyi and Agrawala, Maneesh},
-  booktitle={ICLR},
-  year={2024}
-}
-```
 
 ## License
 

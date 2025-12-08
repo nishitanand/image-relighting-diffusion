@@ -172,7 +172,7 @@
 
 📚 Documentation:   See README.md and QUICKREF.md
 🔗 Official Script: github.com/huggingface/diffusers/examples/instruct_pix2pix
-📖 Paper:           arxiv.org/abs/2211.09800 (InstructPix2Pix)
+📖 Method:          InstructPix2Pix instruction-based editing
 
 ═══════════════════════════════════════════════════════════════════════════════
 

@@ -61,7 +61,7 @@ def visualize_pipeline_stages(
         axes[1, 2].set_title("6. Specular (Optional)", fontsize=12)
 
     # Row 3: Shadow Image, Final Output, Caption
-    show_image(axes[2, 0], data_root / 'stage_3' / f"{image_id:05d}_shadow.png", "7. Shadow Image (IC-Light)")
+    show_image(axes[2, 0], data_root / 'stage_3' / f"{image_id:05d}_shadow.png", "7. Shadow Image")
     show_image(axes[2, 1], data_root / 'outputs' / f"{image_id:05d}_output.png", "8. Final Output")
 
     # Show caption and parameters

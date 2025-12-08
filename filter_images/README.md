@@ -276,19 +276,6 @@ Ensure your dataset path is correct and contains supported image formats (.jpg, 
 - 8GB+ GPU memory (recommended)
 - Sufficient disk space for dataset and outputs
 
-## Citation
-
-If you use this code in your research, please cite the original CLIP paper:
-
-```bibtex
-@inproceedings{radford2021learning,
-  title={Learning transferable visual models from natural language supervision},
-  author={Radford, Alec and Kim, Jong Wook and Hallacy, Chris and others},
-  booktitle={International conference on machine learning},
-  year={2021}
-}
-```
-
 ## License
 
 This project is provided as-is for research and educational purposes.

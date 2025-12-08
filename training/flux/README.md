@@ -103,10 +103,6 @@ When official Flux InstructPix2Pix training becomes available, this folder will 
 - **Diffusers**: https://github.com/huggingface/diffusers
 - **Black Forest Labs**: https://github.com/black-forest-labs/flux
 
-### Flux Papers & Info
-- **Flux.1 Announcement**: https://blackforestlabs.ai/announcing-black-forest-labs/
-- **Technical Details**: Check HuggingFace model card
-
 ### Community Implementations
 Check https://github.com/topics/flux-ai for community experiments (use with caution - not official)
 

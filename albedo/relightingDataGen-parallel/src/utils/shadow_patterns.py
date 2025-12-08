@@ -8,7 +8,7 @@ Implements procedural generation of common shadow patterns:
 - Lattice/architectural elements
 - Voronoi cells (irregular organic patterns)
 
-Based on research into IC-Light and photography shadow patterns.
+Based on research into photography shadow patterns.
 """
 
 import numpy as np

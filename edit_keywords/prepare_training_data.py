@@ -1,5 +1,5 @@
 """
-Prepare training data from keywords CSV for InstructPix2Pix training.
+Prepare training data from keywords CSV.
 
 This script converts the Step 3 CSV output into the format required by the training scripts.
 

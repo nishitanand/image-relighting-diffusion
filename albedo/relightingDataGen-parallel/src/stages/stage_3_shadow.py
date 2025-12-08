@@ -1,7 +1,7 @@
 """
 Stage 3: Degradation synthesis using multiple methods.
 
-Implements 3 degradation types per IC-Light paper Section 3.1:
+Implements 3 degradation types:
 A. Soft shading (normal-based, Lambertian)
 B. Hard shadow (procedural shadow patterns)
 C. Specular reflection (Phong model)
@@ -32,7 +32,7 @@ class DegradationSynthesisStage(BaseStage):
     """
     Generate degradation images with altered illumination.
 
-    Per IC-Light paper Section 3.1: Generate degradation images that share
+    Generate degradation images that share
     the same intrinsic albedo but have completely altered illuminations.
     """
 

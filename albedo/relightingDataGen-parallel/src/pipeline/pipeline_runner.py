@@ -30,7 +30,7 @@ class RelightingPipeline:
     Processes images through 4 sequential stages:
     1. SAM2 segmentation (foreground/background separation)
     2. IntrinsicAnything albedo extraction
-    3. IC-Light shadow generation
+    3. Shadow generation
     4. Qwen2.5-VL captioning
     """
 

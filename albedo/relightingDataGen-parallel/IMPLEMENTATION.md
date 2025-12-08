@@ -1,8 +1,8 @@
-# IC-Light Data Generation MVP - Implementation Summary
+# Relighting Data Generation MVP - Implementation Summary
 
 ## Overview
 
-This implementation follows the IC-Light paper (Section 3.1) for generating relighting training data. It implements an MVP with 2-3 robust albedo extraction methods and all 3 degradation synthesis types.
+This implementation generates relighting training data with an MVP containing 2-3 robust albedo extraction methods and all 3 degradation synthesis types.
 
 ## What Was Implemented
 
@@ -30,7 +30,7 @@ This implementation follows the IC-Light paper (Section 3.1) for generating reli
    - **Phong specular**: `I_spec = (R·V)^shininess`
    - Light direction sampling (uniform hemisphere)
    - Random parameter generation
-   - Soft shading degradation (Method A from paper)
+   - Soft shading degradation (Method A)
 
 4. **`src/utils/shadow_generation.py`** (~350 lines)
    - **Procedural shadow patterns**:
@@ -39,7 +39,7 @@ This implementation follows the IC-Light paper (Section 3.1) for generating reli
      - Blob shadows (organic shapes)
    - Shadow transformations (rotate, scale, skew)
    - Edge softening with Gaussian blur
-   - Hard shadow degradation (Method B from paper)
+   - Hard shadow degradation (Method B)
 
 ### ✅ Phase 2: Stage Rewrites (2 files)
 
@@ -147,7 +147,7 @@ config/
 - Can upgrade to DPT_Hybrid for quality
 - Works on 24GB GPU
 
-### 3. Matches Paper Methodology
+### 3. Complete Methodology
 - ✅ Multiple albedo extraction methods
 - ✅ Soft shading (normal-based)
 - ✅ Hard shadows (pattern-based)
@@ -171,13 +171,13 @@ config/
    - Download checkpoints: `huggingface-cli download LittleFrog/IntrinsicAnything`
 
 2. **Additional albedo methods**
-   - Paper mentions 6 methods total
+   - 6 methods possible total
    - Currently have 2 working + 1 placeholder
    - Could add: IIW, MIT Intrinsic, PIE-Net
 
 3. **Shadow material database**
    - Currently uses procedural generation
-   - Paper uses 20k purchased + 500k generated
+   - Could use purchased/AI-generated textures
    - Procedural approach works well as MVP
 
 4. **Captioning (Stage 4)**
@@ -308,7 +308,6 @@ print(meta)
 
 ## References
 
-- **IC-Light Paper**: Section 3.1 - In-the-wild data augmentation
 - **IntrinsicAnything**: [GitHub](https://github.com/zju3dv/IntrinsicAnything), [HuggingFace](https://huggingface.co/spaces/LittleFrog/IntrinsicAnything)
 - **Retinex**: [Implementation](https://github.com/dongb5/Retinex)
 - **MiDaS**: [PyTorch Hub](https://pytorch.org/hub/intelisl_midas_v2/), [GitHub](https://github.com/isl-org/MiDaS)
@@ -333,4 +332,4 @@ print(meta)
 
 **Status**: ✅ MVP Complete and Ready for Testing
 
-All core functionality from IC-Light paper Section 3.1 is implemented with robust fallbacks and production-quality code.
+All core functionality is implemented with robust fallbacks and production-quality code.

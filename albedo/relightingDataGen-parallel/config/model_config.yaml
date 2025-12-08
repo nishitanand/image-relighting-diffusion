@@ -9,9 +9,7 @@ intrinsic_anything:
   num_inference_steps: 20
   use_fp16: true
 
-ic_light:
-  checkpoint_path: "lllyasviel/IC-Light"
-  model_variant: "iclight_sd15_fc"  # foreground conditioned
+relighting_model:
   base_model: "runwayml/stable-diffusion-v1-5"
   num_inference_steps: 25
   controlnet_conditioning_scale: 0.8

@@ -6,7 +6,7 @@ Implements 3 albedo extraction methods:
 2. Multi-Scale Retinex (traditional, robust)
 3. LAB-based simple method (ultimate fallback)
 
-Per IC-Light paper Section 3.1: Uses multiple albedo extraction methods
+Uses multiple albedo extraction methods
 to generate diverse training data.
 """
 
